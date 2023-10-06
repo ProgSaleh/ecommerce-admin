@@ -3,13 +3,13 @@ import { NextResponse } from 'next/server';
 
 import prismadb from '@/lib/prismadb';
 
-export default async function POST(req: Request) {
+export async function POST(req: Request) {
   try {
     // It's clerk's responsibility to handle the signIn.
     // When a user is authenticated, you extract the userId from the auth() function
     const { userId } = auth();
 
-    const { body } = await req.json();
+    const body = await req.json();
 
     const { name } = body;
 
@@ -21,7 +21,7 @@ export default async function POST(req: Request) {
       return new NextResponse('Name is required', { status: 400 });
     }
 
-    const store = prismadb.store.create({
+    const store = await prismadb.store.create({
       data: {
         name,
         userId,
