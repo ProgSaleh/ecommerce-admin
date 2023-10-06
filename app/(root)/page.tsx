@@ -1,11 +1,19 @@
-import { UserButton } from '@clerk/nextjs';
+'use client';
+
+import { useEffect } from 'react';
+
+import { useStoreModal } from '@/hooks/use-store-modal';
 
 const SetupPage = () => {
-  return (
-    <div className="p-4">
-      <UserButton afterSignOutUrl="/" />
-    </div>
-  );
+  const storeModal = useStoreModal();
+
+  useEffect(() => {
+    if (!storeModal.isOpen) {
+      storeModal.onOpen();
+    }
+  }, [storeModal.isOpen, storeModal.onOpen]);
+
+  return <div className="p-4">saleh root page</div>;
 };
 
 export default SetupPage;
