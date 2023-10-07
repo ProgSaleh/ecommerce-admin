@@ -75,7 +75,11 @@ export const StoreModal = () => {
                 )}
               />
               <div className="pt-6 space-x-2 flex items-center justify-end w-full">
-                <Button disabled={loading} onClick={storeModel.onClose}>
+                <Button
+                  type="button"
+                  disabled={loading}
+                  onClick={storeModel.onClose}
+                >
                   Cancel
                 </Button>
                 <Button disabled={loading} type="submit">
