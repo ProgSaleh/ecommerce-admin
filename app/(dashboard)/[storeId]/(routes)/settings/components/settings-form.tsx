@@ -6,6 +6,8 @@ import * as z from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Trash } from 'lucide-react';
 import { useForm } from 'react-hook-form';
+import { useRouter, useParams } from 'next/navigation';
+import { toast } from 'react-hot-toast';
 
 import { Heading } from '@/components/ui/heading';
 import { Button } from '@/components/ui/button';
@@ -35,13 +37,26 @@ export const SettingsForm: React.FC<SettingsFormProps> = ({ initialData }) => {
   const [loading, setLoading] = useState(false);
   const [open, setOpen] = useState(false);
 
+  const params = useParams();
+  const router = useRouter();
+
   const form = useForm<SettingsFormValues>({
     resolver: zodResolver(formSchema),
     defaultValues: initialData,
   });
 
   const onSubmit = async (data: SettingsFormValues) => {
-    console.log(data);
+    try {
+      setLoading(true);
+
+      await axios.patch(`/api/stores/${params.storeId}`, data);
+      router.refresh();
+      toast.success('Store updated.');
+    } catch (error) {
+      toast.error('something went wrong');
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
