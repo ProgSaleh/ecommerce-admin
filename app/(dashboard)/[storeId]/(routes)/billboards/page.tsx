@@ -1,4 +1,4 @@
-import { BillboardClient } from './components/client';
+import { BillboardClient } from './[billboardId]/components/client';
 
 const BillboardPage = () => {
   return (
