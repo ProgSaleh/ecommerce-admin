@@ -4,8 +4,6 @@ declare global {
   var prisma: PrismaClient | undefined;
 }
 
-debugger;
-
 // if you do this:
 //    const prismadb = new PrismaClient();
 // in developement env,
