@@ -6,6 +6,7 @@ import { ModalProvider } from '@/providers/modal-provider';
 import { ToasterProvider } from '@/providers/toast-provider';
 
 import './globals.css';
+import { ThemeProvider } from '@/providers/theme-provider';
 
 const inter = Inter({ subsets: ['latin'] });
 
@@ -23,15 +24,17 @@ export default function RootLayout({
     <ClerkProvider>
       <html lang="en">
         <body className={inter.className}>
-          {/* toastr provider appears only on demand. */}
-          <ToasterProvider />
+          <ThemeProvider attribute="class" defaultTheme="dark" enableSystem>
+            {/* toastr provider appears only on demand. */}
+            <ToasterProvider />
 
-          {/* when this modal's visible, it will NOT close unless the admin enters a new store.
-          this can be very strict behaviour and agains UX but's like a validation. */}
-          <ModalProvider />
+            {/* when this modal's visible, it will NOT close unless the admin enters a new store.
+this can be very strict behaviour and agains UX but's like a validation. */}
+            <ModalProvider />
 
-          {/* whole project base on the route. */}
-          {children}
+            {/* whole project base on the route. */}
+            {children}
+          </ThemeProvider>
         </body>
       </html>
     </ClerkProvider>
